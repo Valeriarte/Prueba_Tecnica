@@ -26,3 +26,7 @@ def limpiar_datos(df_ventas):
     df_ventas["Total_Venta"] = df_ventas["Total_Venta"].fillna(df_ventas["Cantidad"] * df_ventas["Precio_Unitario"])
     df_ventas["Fecha"] = pd.to_datetime(df_ventas["Fecha"])
     return df_ventas
+
+def filtrar_ventas(df_ventas):
+    """ Funcion que filtra las ventas del año 2023 """
+    return df_ventas[df_ventas["Fecha"].dt.year == 2023]
