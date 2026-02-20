@@ -30,3 +30,9 @@ def limpiar_datos(df_ventas):
 def filtrar_ventas(df_ventas):
     """ Funcion que filtra las ventas del año 2023 """
     return df_ventas[df_ventas["Fecha"].dt.year == 2023]
+
+def agregar_mes(df_ventas):
+    """ Funcion que agrega la columna de mes a las ventas"""
+    df_ventas["Mes"] = df_ventas["Fecha"].dt.month
+    return df_ventas
+
