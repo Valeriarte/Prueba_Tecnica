@@ -42,3 +42,16 @@ def agregar_mes(df_ventas):
 def calcular_resumen(df_ventas):
     """ Funcion que calcula el resumen de ventas por vendedor y mes """
     return df_ventas.groupby(["Vendedor", "Mes"])["Total_Venta"].sum().reset_index()
+
+
+# 3. Generación de Reporte
+def resumen_ventas(resumen_vendedor_mes):
+    """ Funcion que genera un archivo Excel con el resumen de ventas """
+    nombre_archivo = datetime.now().strftime("resumen_ventas_2023_%H%M%S.xlsx")
+    ventas_por_mes = resumen_vendedor_mes.groupby("Mes")["Total_Venta"].sum().reset_index()
+
+    with pd.ExcelWriter(nombre_archivo, engine="openpyxl") as writer:
+        resumen_vendedor_mes.to_excel(writer, sheet_name="Ventas_por_Vendedor_y_Mes", index=False)
+        ventas_por_mes.to_excel(writer, sheet_name="Ventas_por_Mes", index=False)
+
+    print(f"Archivo final: {nombre_archivo}")
