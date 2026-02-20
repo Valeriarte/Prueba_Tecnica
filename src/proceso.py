@@ -27,12 +27,18 @@ def limpiar_datos(df_ventas):
     df_ventas["Fecha"] = pd.to_datetime(df_ventas["Fecha"])
     return df_ventas
 
+
 def filtrar_ventas(df_ventas):
     """ Funcion que filtra las ventas del año 2023 """
     return df_ventas[df_ventas["Fecha"].dt.year == 2023]
+
 
 def agregar_mes(df_ventas):
     """ Funcion que agrega la columna de mes a las ventas"""
     df_ventas["Mes"] = df_ventas["Fecha"].dt.month
     return df_ventas
 
+
+def calcular_resumen(df_ventas):
+    """ Funcion que calcula el resumen de ventas por vendedor y mes """
+    return df_ventas.groupby(["Vendedor", "Mes"])["Total_Venta"].sum().reset_index()
